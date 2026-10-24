@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#DA291C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Panel Buffet">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest-buffet.json">
+<title>Panel del buffet 4P</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#DA291C;--red2:#b81f14;--yel:#FFC72C;--ink:#27251F;--mut:#6b6860;--bg:#f6f4ef;--ln:#e8e4da;--ok:#1e8a4c;--f:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 var(--f);padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+header{background:var(--red);color:#fff;padding:calc(14px + env(safe-area-inset-top,0px)) 18px 22px;border-radius:0 0 28px 28px;box-shadow:0 4px 0 var(--yel)}
+.hd{max-width:600px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.logo{width:48px;height:48px;border-radius:14px;background:var(--yel);color:var(--red);font-weight:800;font-size:1.25rem;display:grid;place-items:center;flex:none;transform:rotate(-4deg)}
+.hd h1{margin:0;font-size:1.35rem;line-height:1.1;font-weight:800}.hd p{margin:0;font-size:.82rem;opacity:.92}
+main{max-width:600px;margin:0 auto;padding:16px 16px 0}
+.demo{background:#fff4d1;border:1px solid var(--yel);border-radius:12px;padding:8px 12px;font-size:.8rem;margin-bottom:12px}
+h2{font-size:1.2rem;font-weight:800;margin:6px 0 12px}
+.card{background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 10px rgba(39,37,31,.08);margin-bottom:14px}
+label.t{display:block;font-weight:600;margin:0 0 6px}
+input[type=text],input[type=password]{width:100%;padding:13px 14px;font:inherit;border:2px solid var(--ln);border-radius:12px;background:#fff;color:var(--ink)}
+input:focus{border-color:var(--red);outline:0}
+:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.chip{padding:9px 16px;border-radius:999px;border:2px solid var(--ln);background:#fff;font:600 .9rem var(--f);color:var(--ink);cursor:pointer}
+.chip.on{background:var(--yel);border-color:var(--yel)}
+.turno{display:block;width:100%;text-align:left;padding:14px;border:2px solid var(--ln);border-radius:14px;background:#fff;font:inherit;margin-bottom:10px;cursor:pointer;color:var(--ink)}
+.turno.on{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.turno:disabled{opacity:.5;cursor:not-allowed;background:#f1efe9}
+.turno b{display:block}.turno small{color:var(--mut)}
+.btn{display:block;width:100%;padding:15px;border:0;border-radius:999px;background:var(--red);color:#fff;font:700 1rem var(--f);cursor:pointer;box-shadow:0 3px 0 var(--red2)}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.y{background:var(--yel);color:var(--ink);box-shadow:0 3px 0 #d9a514}
+.btn.g{background:#fff;color:var(--red);border:2px solid var(--red);box-shadow:none}
+.btn:disabled{opacity:.5}
+.btn.s{display:inline-block;width:auto;padding:9px 16px;font-size:.88rem}
+.err{color:var(--red);font-weight:600;min-height:1.3em;margin:8px 0}
+.steps{display:flex;gap:6px;margin-bottom:14px}.steps i{flex:1;height:6px;border-radius:9px;background:var(--ln)}.steps i.on{background:var(--red)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prod{background:#fff;border-radius:18px;padding:14px 12px;box-shadow:0 2px 10px rgba(39,37,31,.08);text-align:center;display:flex;flex-direction:column}
+.prod .em{font-size:2.6rem;line-height:1.1}.prod b{display:block;margin-top:4px}
+.prod small{color:var(--mut);display:block;min-height:2.6em}.prod .pr{font-weight:800;color:var(--red);margin:4px 0 8px}
+.prod.out{opacity:.55}.low{color:var(--red);font-weight:600}
+.qty{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:auto}
+.qty button{width:38px;height:38px;border-radius:50%;border:0;background:var(--yel);font:800 1.2rem var(--f);cursor:pointer;color:var(--ink)}
+.qty output{min-width:1.4em;font-weight:800}
+.cart{position:fixed;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom,0px));padding:0 16px 10px;z-index:5}
+.cart .btn{max-width:568px;margin:0 auto;display:flex;justify-content:space-between}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--ln);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
+.tabs button{flex:1;border:0;background:none;padding:9px 4px 10px;font:600 .74rem var(--f);color:var(--mut);cursor:pointer}
+.tabs button span{display:block;font-size:1.3rem}.tabs button.on{color:var(--red)}
+.row{display:flex;justify-content:space-between;gap:8px;padding:5px 0}.row.tot{border-top:2px dashed var(--ln);margin-top:6px;padding-top:10px;font-weight:800;font-size:1.1rem}
+/* ticket */
+.tk{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 16px rgba(39,37,31,.12);margin-bottom:16px}
+.tk .top{background:var(--red);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.badge{background:var(--yel);color:var(--ink);font-weight:700;font-size:.78rem;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.badge.ok{background:var(--ok);color:#fff}.badge.no{background:#555;color:#fff}.badge.warn{background:#fff;color:var(--red)}
+.tk .code{font-size:2.8rem;font-weight:800;text-align:center;letter-spacing:.08em;padding:14px 0 2px}
+.tk .when{text-align:center;color:var(--mut);padding:0 16px 12px}.tk .when b{color:var(--ink);display:block;font-size:1.05rem}
+.perf{border-top:3px dotted var(--ln);margin:0 12px;position:relative}
+.perf::before,.perf::after{content:"";position:absolute;top:-12px;width:22px;height:22px;border-radius:50%;background:var(--bg)}.perf::before{left:-23px}.perf::after{right:-23px}
+.tk .in{padding:12px 16px 14px}.tk.c .code,.tk.c .in{opacity:.4;text-decoration:line-through}
+.tk .act{padding:0 16px 16px}
+.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stat div{background:#fff;border-radius:14px;padding:10px 6px;text-align:center;box-shadow:0 2px 8px rgba(39,37,31,.07)}.stat b{display:block;font-size:1.15rem;color:var(--red)}.stat small{color:var(--mut);font-size:.72rem}
+.prep{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.prep span{background:var(--yel);border-radius:999px;padding:5px 12px;font-weight:700;font-size:.85rem}
+.ord{background:#fff;border-radius:16px;padding:12px 14px;margin-bottom:10px;box-shadow:0 2px 8px rgba(39,37,31,.07)}
+.ord .h{display:flex;justify-content:space-between;align-items:center;gap:8px}.ord .b{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.empty{text-align:center;color:var(--mut);padding:30px 10px}
+.note{color:var(--mut);font-size:.85rem}
+dialog{border:0;border-radius:20px;max-width:330px;padding:20px;font-family:var(--f);color:var(--ink)}dialog::backdrop{background:rgba(0,0,0,.55)}
+dialog menu{display:flex;gap:10px;margin:16px 0 0;padding:0}dialog menu .btn{padding:12px}
+.toast{position:fixed;left:50%;bottom:calc(130px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-weight:600;z-index:20;max-width:90%;text-align:center}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:no-preference){.tk.new{animation:pop .4s cubic-bezier(.2,1.4,.4,1)}@keyframes pop{from{transform:scale(.9);opacity:0}}}
+
+body{padding-bottom:40px}
+</style>
+</head>
+<body>
+<header><div class="hd"><div class="logo">🧑‍🍳</div><div><h1>Panel del buffet</h1><p>Pedidos de 4P · <a href="index.html" style="color:#fff">ir a la página de pedidos</a></p></div></div></header>
+<main>
+  <div class="demo" style="background:#fff;border-color:var(--red)">🥐 <b>Todos los días se venden solamente bizcochos y facturas.</b></div>
+  <div class="demo" id="demo" hidden><b>Modo demo:</b> los pedidos se guardan solo en este dispositivo. Conectá Firebase en <code>config.js</code> para recibir los pedidos de todos.</div>
+  <section id="app"></section>
+</main>
+<dialog id="dlg"><b id="dT"></b><p class="note" id="dP"></p><menu><button class="btn g s" id="dN">Volver</button><button class="btn s" id="dY">Confirmar</button></menu></dialog>
+<script src="config.js"></script>
+<script src="shared.js"></script>
+<script>
+function estadoTxt(o){
+  if(o.estado==='cancelado')return['Cancelado','no'];
+  if(o.estado==='retirado')return['Retirado','ok'];
+  if(o.estado==='listo')return['¡Listo para retirar!','ok'];
+  return estTurno(turno(o.turno),o.fecha)==='pasado'?['No retirado','no']:['Pedido recibido',''];
+}
+
+const S={ok:sessionStorage.getItem('b4p_adm')==='1',f:dias()[0].f,t:ahora()>=mins(TURNOS[0].h)?TURNOS[1].id:TURNOS[0].id,q:'',v:'pedidos'};
+let conocidos=null;
+/* ===== AVISOS ===== */
+const propios=new Set(),avisados=new Set();let wl=null;
+const resumen=o=>o.items.map(i=>i.q+' '+i.n).join(', ');
+async function sysNotif(t,c,tag){try{if(!('Notification' in window)||Notification.permission!=='granted')return;
+  const o={body:c,tag,icon:'icon-192.png',badge:'icon-192.png',vibrate:[200,100,200]},r=await navigator.serviceWorker.getRegistration();
+  r?r.showNotification(t,o):new Notification(t,o)}catch(e){}}
+function avisar(t,c,tag){beep();try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}toast(t+': '+c);sysNotif(t,c,tag)}
+function titulo(){const h=ymd(new Date()),n=DB.orders.filter(o=>o.fecha===h&&o.estado==='pendiente').length;document.title=(n?'('+n+') ':'')+'Panel del buffet 4P'}
+async function pantalla(){try{if('wakeLock' in navigator&&!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>wl=null)}}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.ok)pantalla()});
+function recordatorios(){
+  if(!S.ok)return;const h=ymd(new Date()),n=ahora();
+  TURNOS.forEach(t=>{const falta=mins(t.d)-n,k=h+t.id;
+    if(falta>0&&falta<=REAVISO_MIN&&!avisados.has(k)){avisados.add(k);
+      const ps=DB.orders.filter(o=>o.fecha===h&&o.turno===t.id&&o.estado==='pendiente'),tot={};
+      ps.forEach(o=>o.items.forEach(i=>tot[i.n]=(tot[i.n]||0)+i.q));
+      avisar('⏰ Faltan '+falta+' min para el '+t.n.split(' · ')[0],ps.length?ps.length+' pedidos: '+Object.entries(tot).map(([x,q])=>q+' '+x).join(', '):'No hay pedidos para preparar','r-'+k)}})}
+async function registrarPush(){
+  try{
+    if(DB.mode!=='cloud')return;
+    if(typeof VAPID_KEY==='undefined'||!VAPID_KEY)return;
+    const M=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js');
+    const reg=await navigator.serviceWorker.ready;
+    const token=await M.getToken(M.getMessaging(DB.app),{vapidKey:VAPID_KEY,serviceWorkerRegistration:reg});
+    if(token){await DB.F.setDoc(DB.F.doc(DB.db,'tokens',token),{creado:Date.now(),equipo:navigator.userAgent.slice(0,90)});toast('📲 Avisos con la app cerrada: activados')}
+  }catch(e){console.error(e);toast('No se pudo activar el aviso con la app cerrada')}
+}
+function avisosHTML(){const p='Notification' in window?Notification.permission:'no';
+  return `<div class="card" style="padding:12px 14px">`+(p==='granted'?`<button class="btn g s" data-a="avisos" style="float:right">Probar</button><span>🔔 <b>Avisos activados</b></span>`:p==='denied'?`<span class="note">🔕 Los avisos están bloqueados. Habilitalos en los ajustes del sitio.</span>`:p==='no'?`<span class="note">🔕 Este navegador no permite avisos. Instalá el panel en la pantalla de inicio.</span>`:`<button class="btn y s" data-a="avisos">🔔 Activar avisos de pedidos</button>`)+`<div class="note" style="margin-top:6px;clear:both">Te avisa de cada pedido nuevo y 20 minutos antes de cada turno, aunque la app esté cerrada.</div></div>`}
+
+function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;g.gain.value=.15;o.start();o.stop(a.currentTime+.3)}catch(e){}}
+function shell(){
+  const el=$('#app');
+  if(!S.ok){el.innerHTML=`<div class="card"><h2 style="margin-top:0">Ingreso del buffet</h2><label class="t" for="pin">PIN</label><input type="password" id="pin" inputmode="numeric" autocomplete="off"><p class="err" id="err" role="alert"></p><button class="btn" data-a="pin">Entrar</button></div>`;return}
+  el.innerHTML=avisosHTML()+`<div class="chips">${dias().map(d=>`<button class="chip${S.f===d.f?' on':''}" data-a="f" data-f="${d.f}">${d.l} · ${d.f.slice(8)}/${d.f.slice(5,7)}</button>`).join('')}</div>
+  <div class="chips">${TURNOS.map(t=>`<button class="chip${S.t===t.id?' on':''}" data-a="t" data-t="${t.id}">${t.d} – ${t.h}${cerrado(S.f,t.id)?' 🔒':''}</button>`).join('')}</div>
+  <div class="chips"><button class="chip${S.v==='pedidos'?' on':''}" data-a="v" data-v="pedidos">📋 Pedidos</button><button class="chip${S.v==='stock'?' on':''}" data-a="v" data-v="stock">📦 Stock del día</button><button class="chip${S.v==='cierres'?' on':''}" data-a="v" data-v="cierres">🔒 Cierres</button></div>
+  <div id="sum"></div>${S.v==='pedidos'?`<input type="text" id="aq" placeholder="Buscar por nombre o código" value="${esc(S.q)}" style="margin-bottom:12px">`:''}<div id="al"></div>
+  <p class="note">${DB.mode==='cloud'?'🟢 Conectado en tiempo real':'🟡 Modo demo (solo este dispositivo)'}</p><button class="btn g s" data-a="salir">Cerrar sesión</button>`;
+  refresh();
+}
+function refresh(){
+  if(!S.ok||!$('#al'))return;
+  if(S.v==='cierres'){
+    $('#sum').innerHTML='';const todos=TURNOS.every(t=>cerrado(S.f,t.id));
+    $('#al').innerHTML=`<div class="card"><b>${fLarga(S.f)}</b><p class="note">Si hay un problema de producción, cerrá los pedidos. Los alumnos ya no van a poder pedir en ese horario. Los pedidos ya hechos se cancelan desde “Pedidos”.</p>`+
+      TURNOS.map(t=>{const c=cerrado(S.f,t.id);return `<div class="row" style="align-items:center"><span><b>${t.n}</b><br><small class="note">${t.d} a ${t.h} hs · ${c?'🔒 Cerrado':'🟢 Abierto'}</small></span><button class="btn s ${c?'y':'g'}" data-a="cierre" data-t="${t.id}">${c?'Reabrir':'Cerrar'}</button></div>`}).join('')+
+      `<button class="btn${todos?' y':''}" style="margin-top:12px" data-a="cierreTodo">${todos?'Reabrir todo el día':'Cerrar todo el día'}</button></div>`;
+    return;
+  }
+  if(S.v==='stock'){
+    $('#sum').innerHTML='';
+    $('#al').innerHTML=MENU.map(m=>{const u=usado(S.f,m.id),p=Math.min(100,Math.round(u/m.s*100));
+      return `<div class="ord"><div class="h"><b>${m.e} ${m.n}</b><span class="badge${u>=m.s?' no':''}">${u>=m.s?'Agotado':'Quedan '+(m.s-u)}</span></div><div style="background:#eee;border-radius:9px;height:10px;margin-top:8px"><div style="width:${p}%;background:${p>=90?'var(--red)':'var(--yel)'};height:10px;border-radius:9px"></div></div><div class="note">${u} pedidos de ${m.s} disponibles</div></div>`}).join('');
+    return;
+  }
+  const all=DB.orders.filter(o=>o.fecha===S.f&&o.turno===S.t).sort((a,b)=>a.creado-b.creado);
+  const act=all.filter(o=>o.estado!=='cancelado'),pend=act.filter(o=>o.estado!=='retirado');
+  const prep={};pend.forEach(o=>o.items.forEach(i=>prep[i.n]=(prep[i.n]||0)+i.q));
+  $('#sum').innerHTML=`<div class="stat"><div><b>${act.length}</b><small>pedidos</small></div><div><b>${money(pend.reduce((s,o)=>s+o.total,0))}</b><small>por cobrar</small></div><div><b>${money(act.filter(o=>o.estado==='retirado').reduce((s,o)=>s+o.total,0))}</b><small>cobrado</small></div></div>
+  <b>Para preparar</b><div class="prep" style="margin-top:6px">${Object.keys(prep).length?Object.entries(prep).map(([n,q])=>`<span>${q} × ${esc(n)}</span>`).join(''):'<span style="background:#eee">Nada pendiente</span>'}</div>`;
+  const q=S.q.trim().toLowerCase(),lst=all.filter(o=>!q||o.nombre.toLowerCase().includes(q)||o.codigo.toLowerCase().includes(q));
+  $('#al').innerHTML=lst.length?lst.map(o=>{const[et,cl]=estadoTxt(o);
+    return `<div class="ord"><div class="h"><b>${esc(o.nombre)} · <span style="letter-spacing:.06em">${o.codigo}</span></b><span class="badge ${cl}">${et}</span></div>
+    <div class="note">${o.items.map(i=>i.q+' × '+esc(i.n)).join(', ')} — <b>${money(o.total)}</b></div>
+    ${o.estado==='cancelado'||o.estado==='retirado'?'':`<div class="b">${o.estado==='pendiente'?`<button class="btn y s" data-a="set" data-c="${o.codigo}" data-e="listo">Marcar listo</button>`:''}<button class="btn s" data-a="set" data-c="${o.codigo}" data-e="retirado">Retirado y cobrado</button><button class="btn g s" data-a="set" data-c="${o.codigo}" data-e="cancelado">Cancelar</button></div>`}</div>`}).join(''):'<div class="empty">No hay pedidos para este turno.</div>';
+}
+const A={
+  pin(){if($('#pin').value===PIN_BUFFET){S.ok=true;try{sessionStorage.setItem('b4p_adm','1')}catch(e){}beep();pantalla();shell()}else $('#err').textContent='PIN incorrecto.'},
+  async avisos(){if(!('Notification' in window))return toast('Este navegador no permite avisos');
+    const p=await Notification.requestPermission();if(p==='granted'){beep();sysNotif('🔔 Avisos activados','Vas a recibir un aviso por cada pedido nuevo','test');await registrarPush()}shell()},
+  salir(){S.ok=false;try{sessionStorage.removeItem('b4p_adm')}catch(e){}shell()},
+  async cierre(d){const c=cerrado(S.f,d.t),go=async()=>{try{await setCierre(S.f,d.t,!c);toast(c?'Turno reabierto':'Turno cerrado')}catch(e){toast('Error al guardar')}};
+    c?go():ask('¿Cerrar pedidos de este turno?','Los alumnos no van a poder pedir para '+fLarga(S.f)+' ('+turno(d.t).d+' hs).',go)},
+  cierreTodo(){const abrir=TURNOS.every(t=>cerrado(S.f,t.id)),go=async()=>{try{for(const t of TURNOS)await setCierre(S.f,t.id,!abrir);toast(abrir?'Día reabierto':'Día cerrado')}catch(e){toast('Error al guardar')}};
+    abrir?go():ask('¿Cerrar todo el día?','Los alumnos no van a poder pedir para '+fLarga(S.f)+'.',go)},
+  f(d){S.f=d.f;shell()},t(d){S.t=d.t;shell()},v(d){S.v=d.v;shell()},
+  set(d){const o=DB.orders.find(x=>x.codigo===d.c);if(!o)return;
+    const go=async()=>{try{propios.add(o.codigo);await DB.put({...o,estado:d.e});toast('Actualizado')}catch(e){toast('Error al guardar')}};
+    d.e==='cancelado'?ask('¿Cancelar pedido de '+o.nombre+'?','El cliente verá su ticket como cancelado.',go):go()}
+};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a])A[b.dataset.a](b.dataset)});
+document.addEventListener('input',e=>{if(e.target.id==='aq'){S.q=e.target.value;refresh()}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='pin')A.pin()});
+DB.cbs.push(()=>{
+  const m=new Map(DB.orders.map(o=>[o.codigo,o.estado]));
+  if(conocidos&&S.ok)DB.orders.forEach(o=>{
+    if(!conocidos.has(o.codigo)){if(o.estado==='pendiente')avisar('🔔 Nuevo pedido',o.nombre+' · '+resumen(o)+' ('+turno(o.turno).d+' hs)','p-'+o.codigo)}
+    else if(o.estado==='cancelado'&&conocidos.get(o.codigo)!=='cancelado'&&!propios.has(o.codigo))avisar('❌ Pedido cancelado',o.nombre+' canceló su pedido','c-'+o.codigo)});
+  conocidos=m;refresh();titulo();recordatorios();
+});
+setInterval(()=>{if(S.ok){refresh();recordatorios()}},30000);
+DB.init().then(()=>{shell();if(S.ok)pantalla();if('Notification' in window&&Notification.permission==='granted')registrarPush()});
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+</body>
+</html>

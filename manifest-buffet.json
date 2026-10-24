@@ -1,0 +1,22 @@
+{
+  "name": "Panel Buffet 4P",
+  "short_name": "Panel Buffet",
+  "description": "Panel para ver y entregar los pedidos del buffet",
+  "start_url": "./buffet.html",
+  "display": "standalone",
+  "background_color": "#f6f4ef",
+  "theme_color": "#DA291C",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "id": "./buffet.html"
+}
